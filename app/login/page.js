@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
 import { useRouter } from "next/navigation";
-
+import Navbar from "@/components/Navbar";
+import Image from "next/image";
 const page = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -38,23 +39,43 @@ const page = () => {
     }
   };
   return (
-    <div>
-      <div>
-        <form action="" onSubmit={handleSubmit}>
-          <input
-            placeholder="email"
-            name="email"
-            type="email"
-            onChange={handleChange}
-          />
-          <input
-            placeholder="password"
-            name="password"
-            type="password"
-            onChange={handleChange}
-          />
-          <button type="submit">submit</button>
-        </form>
+    <div className="  h-screen bg-gradient-to-r from-green-100 to-teal-100 ">
+      <Navbar></Navbar>
+      <div className="flex justify-center items-center mt-8  ">
+        <div className="flex w-[70vw]   h-[70vh] rounded-lg shadow-lg shadow-gray-500   bg-gradient-to-r from-amber-200 to-yellow-400  ">
+          <Image
+            src="/assets/login1.jpg"
+            width={400}
+            height={40}
+            alt="login image"
+            className="object-cover  h-full basis-1/2 "
+          ></Image>
+          <form
+            action=""
+            onSubmit={handleSubmit}
+            className="flex  flex-col basis-1/2 justify-center items-center gap-8"
+          >
+            <span className="text-5xl font-bold text-white">Log In here</span>
+            <input
+              placeholder="email"
+              name="email"
+              type="email"
+              onChange={handleChange}
+            />
+            <input
+              placeholder="password"
+              name="password"
+              type="password"
+              onChange={handleChange}
+            />
+            <button
+              className=" bg-white p-2 font-extrabold w-1/2 text-3xl text-orange-400"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

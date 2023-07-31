@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 const page = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -33,17 +34,24 @@ const page = () => {
     }
   };
   return (
-    <div>
-      <div className="flex justify-center item-center">
-        <Image
-          src="/assets/sign.jpg"
-          width={400}
-          height={400}
-          alt="login image"
-        ></Image>
+    <div className="  h-screen bg-gradient-to-r from-green-100 to-teal-100 ">
+      <Navbar></Navbar>
+      <div className="flex justify-center items-center mt-8  ">
+        <div className="flex w-[70vw]   h-[70vh] rounded-lg shadow-lg shadow-gray-500   bg-gradient-to-r from-amber-200 to-yellow-400  ">
+          <Image
+            src="/assets/sign.jpg"
+            width={400}
+            height={40}
+            alt="login image"
+            className="object-cover  h-full basis-1/2"
+          ></Image>
 
-        <div>
-          <form action="" onSubmit={handleSubmit} className="flex flex-col">
+          <form
+            action=""
+            onSubmit={handleSubmit}
+            className="flex  flex-col basis-1/2 justify-center items-center gap-8"
+          >
+            <span className="text-5xl font-bold text-white">Sign Up here</span>
             <input
               placeholder="name"
               name="fullName"
@@ -62,7 +70,12 @@ const page = () => {
               type="password"
               onChange={handleChange}
             />
-            <button type="submit">submit</button>
+            <button
+              className=" bg-white p-2 font-extrabold w-1/2 text-3xl text-orange-400"
+              type="submit"
+            >
+              Submit
+            </button>
           </form>
         </div>
       </div>
