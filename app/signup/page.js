@@ -1,9 +1,12 @@
 "use client";
+import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import { useRouter } from "next/navigation";
 const page = () => {
+    const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -18,6 +21,15 @@ const page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!formData.fullName|| !formData.email||!formData.password) {
+       return toast.error("form values cannot be empty");
+
+      }
+      if (formData.password.length < 6) {
+        return toast.error("password must be at least 6 characters");
+        
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -28,8 +40,14 @@ const page = () => {
           },
         },
       });
-      if (error) console.log(error);
-      else alert("check your email for verification");
+      if (error) {
+        toast.error("error in signing up");
+        console.log(error);
+      }
+      else {
+        alert("check your email for verification and then click login");
+        router.push("/login");
+      }
     } catch (err) {
       alert(err);
     }
@@ -37,6 +55,8 @@ const page = () => {
   return (
     <div className="  h-screen bg-gradient-to-r from-green-100 to-teal-100 ">
       <Navbar></Navbar>
+            <Toaster></Toaster>
+
       <div className="flex justify-center items-center mt-8  ">
         <div className="flex w-[70vw]   h-[70vh] rounded-lg shadow-lg shadow-gray-500   bg-gradient-to-r from-amber-200 to-yellow-400  ">
           <Image

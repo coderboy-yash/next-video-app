@@ -1,4 +1,5 @@
 "use client";
+import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
 import { useRouter } from "next/navigation";
@@ -17,21 +18,26 @@ const page = () => {
     });
   };
   const handleSubmit = async (e) => {
+    if (!formData.email || !formData.password) {
+      return toast.error("form values can not be empty");
+    }
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
-      console.log(data);
+      // console.log(data);
 
       // adding token to session storage
 
       sessionStorage.setItem("token", JSON.stringify(data));
 
-      if (error) console.log(error);
+      if (error) { 
+        toast.error(" Log in failed enter correct credentials " );
+      }
       else {
-        alert("login successfull");
+        toast.success("login successfull");
         router.push("/");
       }
     } catch (err) {
@@ -41,6 +47,7 @@ const page = () => {
   return (
     <div className="  h-screen bg-gradient-to-r from-green-100 to-teal-100 ">
       <Navbar></Navbar>
+                  <Toaster></Toaster>
       <div className="flex justify-center items-center mt-8  ">
         <div className="flex w-[70vw]   h-[70vh] rounded-lg shadow-lg shadow-gray-500   bg-gradient-to-r from-amber-200 to-yellow-400  ">
           <Image
