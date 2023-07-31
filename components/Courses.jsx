@@ -10,7 +10,7 @@ const Courses = () => {
       </div>
       <div>
         {data.map((item) => (
-          <Course course={item}></Course>
+          <Course course={item} key={item.id}></Course>
         ))}
       </div>
     </div>

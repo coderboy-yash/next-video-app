@@ -1,8 +1,13 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
 import data from "../../../data/course_list.json";
 import YouTubeVideo from "@/components/YouTubeVideo";
 import Image from "next/image";
 import Link from "next/link";
 const Page = ({ params }) => {
+  const router = useRouter();
   const id = params.course;
   const topic = data.filter((item) => item.id == id);
   // console.log("hello", topic);
@@ -10,6 +15,12 @@ const Page = ({ params }) => {
   const videoIds = videos.map((video) => video.slice(32));
   console.log(videoIds);
 
+  // authentication for signed in users
+  if (topic[0].course_type == "premium") {
+    if (!sessionStorage.getItem("token")) {
+      router.push("/login");
+    }
+  }
   return (
     <div>
       <div className="bg-orange-50">
@@ -47,6 +58,7 @@ const Page = ({ params }) => {
           </div>
         ))}
       </div>
+      <Footer></Footer>
     </div>
   );
 };

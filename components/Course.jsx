@@ -23,7 +23,7 @@ const Course = ({ course }) => {
 
         <Link
           href={`/topic/${course.id}`}
-          className="bg-orange-400 text-white p-2 text-3xl w-48 rounded-md  active:bg-orange-200"
+          className="bg-orange-400 text-white p-2 text-3xl w-44 rounded-md  active:bg-orange-200"
         >
           Start Now.
         </Link>
