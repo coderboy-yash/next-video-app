@@ -24,6 +24,7 @@ const page = () => {
         options: {
           data: {
             full_name: formData.fullName,
+             emailRedirectTo: 'https://next-video-cc5pgzw1m-coderboy-yash.vercel.app/login'
           },
         },
       });
